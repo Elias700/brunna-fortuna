@@ -46,6 +46,18 @@
   object-position: 30% 20%;
 }
 
+// Desktop: o parallax (scale 1.3, a partir do centro) cortava o topo da cabeça. Com a origem no
+// topo, o zoom cresce só para baixo, e a foto fica alinhada pela borda de cima.
+@include up(lg) {
+  .about__parallax {
+    transform-origin: center top;
+  }
+
+  .about__parallax img {
+    object-position: 30% 0%;
+  }
+}
+
 .about__caption {
   margin-top: var(--space-s);
   font-family: var(--font-serif);

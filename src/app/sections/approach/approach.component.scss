@@ -55,6 +55,16 @@
     object-fit: cover;
     object-position: 50% 15%;
   }
+
+  // Desktop: o parallax (scale 1.25) cortava o topo da cabeça. Com a origem no topo, o zoom
+  // cresce só para baixo, e a imagem fica alinhada pelo topo.
+  @include up(lg) {
+    transform-origin: center top;
+
+    img {
+      object-position: 50% 0%;
+    }
+  }
 }
 
 .approach__pillars {
