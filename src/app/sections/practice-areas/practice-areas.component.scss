@@ -1,0 +1,194 @@
+@use 'mixins' as *;
+
+:host {
+  display: block;
+}
+
+.practice {
+  position: relative;
+  overflow: clip; // contém o scale do S-ZOOMOUT (clip não quebra o sticky, ao contrário de hidden)
+  background:
+    radial-gradient(50% 60% at 10% 0%, rgb(184 146 90 / 12%), transparent 70%),
+    var(--c-ink);
+  color: var(--c-on-dark);
+}
+
+.practice__stage {
+  padding-block: var(--section-pad);
+}
+
+// ─── Cabeçalho ────────────────────────────────────────────────────
+.practice__head {
+  display: grid;
+  gap: var(--space-m);
+
+  @include up(lg) {
+    grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+    align-items: end;
+  }
+}
+
+.practice__title {
+  display: flex;
+  flex-direction: column;
+  margin-top: var(--space-s);
+  font-weight: 300;
+}
+
+.practice__line {
+  display: block;
+  white-space: nowrap;
+}
+
+.practice__line--accent {
+  padding-left: 0.6em;
+
+  em {
+    color: var(--c-gold-light);
+  }
+}
+
+.practice__intro {
+  max-width: 30rem;
+  color: var(--c-on-dark-muted);
+}
+
+// ─── Layout padrão (mobile, sem JS, movimento reduzido): lista vertical ───
+.practice__viewport {
+  @include container;
+  margin-top: var(--space-xl);
+}
+
+.practice__track {
+  display: grid;
+  gap: var(--space-xl);
+}
+
+.practice__group {
+  display: grid;
+  gap: var(--space-m);
+}
+
+.practice__list {
+  display: grid;
+  gap: var(--space-s);
+
+  @include up(md) {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+.group-card {
+  padding-bottom: var(--space-s);
+  border-bottom: 1px solid var(--c-line-on-dark);
+}
+
+.group-card__eyebrow {
+  @include eyebrow;
+  color: var(--c-gold-light);
+}
+
+.group-card__title {
+  margin-top: var(--space-2xs);
+  font-size: var(--fs-h3);
+  color: var(--c-on-dark);
+}
+
+.group-card__intro {
+  max-width: 28rem;
+  margin-top: var(--space-xs);
+  color: var(--c-on-dark-muted);
+}
+
+.group-card__count {
+  margin-top: var(--space-s);
+  font-size: var(--fs-small);
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--c-gold-light);
+}
+
+.area-card {
+  display: grid;
+  align-content: start;
+  gap: var(--space-2xs);
+  padding: var(--space-m);
+  border: 1px solid var(--c-line-on-dark);
+  border-radius: var(--radius-m);
+  background: rgb(246 241 234 / 3%);
+}
+
+.area-card__num {
+  font-family: var(--font-serif);
+  font-size: 1.5rem;
+  font-style: italic;
+  color: var(--c-gold-light);
+}
+
+.area-card__title {
+  font-size: var(--fs-h4);
+  color: var(--c-on-dark);
+}
+
+.area-card__text {
+  font-size: 0.9375rem;
+  color: var(--c-on-dark-muted);
+}
+
+// ─── Desktop com animação ativa: trilho horizontal pinado ─────────
+.practice__area[data-hscroll-active] {
+  .practice__stage {
+    position: sticky;
+    top: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: clamp(1.5rem, 5svh, 3.5rem);
+    height: 100svh;
+    padding-block: calc(var(--header-h) + 1rem) 2rem;
+    overflow: hidden;
+  }
+
+  .practice__title {
+    font-size: clamp(3rem, 2rem + 4vw, 6rem);
+  }
+
+  .practice__viewport {
+    margin-top: 0;
+    max-width: none;
+    padding: 0;
+  }
+
+  .practice__track {
+    display: flex;
+    gap: var(--space-xl);
+    width: max-content;
+    padding-inline: max(var(--gutter), calc((100vw - var(--container)) / 2));
+    will-change: transform;
+  }
+
+  .practice__group {
+    display: flex;
+    gap: var(--space-s);
+  }
+
+  .practice__list {
+    display: flex;
+    gap: var(--space-s);
+  }
+
+  .group-card {
+    width: 22rem;
+    padding: var(--space-m) var(--space-m) var(--space-m) 0;
+    border-bottom: 0;
+    border-right: 1px solid var(--c-line-on-dark);
+    align-self: stretch;
+  }
+
+  .area-card {
+    width: 20rem;
+    min-height: min(22rem, 46svh);
+    align-content: space-between;
+  }
+}

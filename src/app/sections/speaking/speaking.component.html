@@ -1,0 +1,89 @@
+<section id="palestras" class="speaking on-dark" aria-labelledby="speaking-title" appBgShift="dark" tabindex="-1">
+  <div class="speaking__area" appPinSection="window">
+    <div class="speaking__stage">
+      <p class="speaking__kicker" aria-hidden="true">Palestras</p>
+
+      <div class="speaking__media" data-pin="media">
+        <div class="speaking__media-inner">
+          <img [ngSrc]="speaking.photo.slug" fill sizes="100vw" [alt]="speaking.photo.alt" />
+        </div>
+      </div>
+
+      <div class="speaking__content container" data-pin="content">
+        <div class="speaking__text">
+          <div data-pin-part>
+            <p class="eyebrow">{{ speaking.eyebrow }}</p>
+            <h2 id="speaking-title" class="speaking__title">{{ speaking.title }}</h2>
+          </div>
+
+          <div class="speaking__paragraphs" data-pin-part>
+            @for (p of speaking.paragraphs; track $index) {
+              <p>{{ p }}</p>
+            }
+          </div>
+
+          <div data-pin-part>
+            <h3 class="speaking__subtitle">Temas abordados</h3>
+            <ul class="speaking__topics" role="list">
+              @for (topic of speaking.topics; track topic) {
+                <li>{{ topic }}</li>
+              }
+            </ul>
+          </div>
+
+          @if (events.length) {
+            <div data-pin-part>
+              <h3 class="speaking__subtitle">Agenda</h3>
+              <ul class="speaking__events" role="list">
+                @for (e of events; track e.title) {
+                  <li>
+                    <strong>{{ e.title }}</strong>
+                    <span>{{ e.event }} · {{ e.date }} · {{ e.place }}</span>
+                  </li>
+                }
+              </ul>
+            </div>
+          }
+
+          <div class="speaking__invite" data-pin-part>
+            <p>{{ speaking.invitation }}</p>
+            <a class="btn btn--light" [href]="nav.href('contato')" (click)="nav.go('contato', $event)">
+              Convidar para um evento
+              <app-icon name="arrow-right" />
+            </a>
+          </div>
+        </div>
+
+        <figure class="speaking__video" data-pin-part>
+          <div class="speaking__video-frame">
+            @if (playing()) {
+              <video
+                #video
+                controls
+                playsinline
+                autoplay
+                preload="auto"
+                [attr.aria-label]="speaking.video.label"
+                width="720"
+                height="1280"
+              >
+                <source [src]="speaking.video.src" type="video/mp4" />
+                @if (captions) {
+                  <track kind="captions" srclang="pt-BR" label="Português" [src]="captions" default />
+                }
+              </video>
+            } @else {
+              <!-- Facade: nada do vídeo (10 MB) é baixado até a pessoa pedir. -->
+              <button type="button" class="video-facade" (click)="play()">
+                <img ngSrc="brunna-palestras" fill sizes="(min-width: 992px) 20rem, 17rem" alt="" />
+                <span class="video-facade__play" aria-hidden="true"><app-icon name="play" [stroke]="1.4" /></span>
+                <span class="visually-hidden">Reproduzir {{ speaking.video.label }}</span>
+              </button>
+            }
+          </div>
+          <figcaption>{{ speaking.video.title }}</figcaption>
+        </figure>
+      </div>
+    </div>
+  </div>
+</section>

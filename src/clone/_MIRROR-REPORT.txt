@@ -1,0 +1,18 @@
+VibeCloner — Relatório de Mirror
+==================================
+URL: https://www.era-residence.com/
+Capturado em: 2026-11-19T14:19:30.464Z
+
+Recursos detectados na página: 173
+Assets estáticos tentados: 165
+Baixados para o mirror: 164
+Falharam: 1
+
+FALHAS (URL — tipo — erro):
+---------------------------
+[img] HTTP 405
+    https://ad.doubleclick.net/ccm/s/collect?_gsid=GGrGSeXkmiRGDmA6Z2Ln3WA2y3lzGUPBmA&auid=266920974.1794485340&gtm=45He6bh1v9252215137za200zd9252215137xeaxf1&fmt=3
+
+Obs.: recursos que falharam mantêm a URL original no HTML (carregam
+da web quando o clone é servido com internet). Envie este arquivo
+para diagnóstico se algo estiver faltando.

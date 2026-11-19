@@ -1,0 +1,100 @@
+// Design tokens — Brunna Fortuna Advocacia
+// Paleta derivada do monograma (azul-marinho + dourado escovado), da assinatura em vinho
+// e dos tons quentes das fotos. Contrastes conferidos para WCAG 2.2 AA.
+
+:root {
+  // ─── Cores base ───────────────────────────────────────────────
+  --c-ink: #0e1a2b;          // azul-marinho do monograma
+  --c-ink-soft: #1b2a40;
+  --c-paper: #f6f1ea;        // off-white quente (fundo principal)
+  --c-paper-raised: #fbf8f3;
+  --c-sand: #e8ddcf;         // areia
+  --c-sand-deep: #d9cab6;
+  --c-cocoa: #4a2e26;        // cacau dos fundos de estúdio
+  --c-wine: #7a2e2e;         // vinho da assinatura
+  --c-wine-deep: #5f2222;
+  --c-gold: #b8925a;         // dourado: decorativo em fundo claro (2.6:1), texto só em fundo escuro (5.9:1)
+  --c-gold-light: #d4b781;   // dourado para texto em fundo escuro
+  --c-graphite: #2a2a2e;     // texto corrido (13:1 sobre paper)
+  --c-muted: #5e5852;        // texto secundário (6.2:1 sobre paper)
+  --c-line: rgb(14 26 43 / 14%);
+  --c-line-strong: rgb(14 26 43 / 28%);
+  --c-on-dark: #f6f1ea;
+  --c-on-dark-muted: rgb(246 241 234 / 72%);
+  --c-line-on-dark: rgb(246 241 234 / 18%);
+  --c-success: #2f6b46;
+  --c-error: #a32a2a;
+
+  // ─── Tipografia ───────────────────────────────────────────────
+  --font-serif: 'Cormorant Garamond', 'Cormorant Fallback', 'Times New Roman', serif;
+  --font-sans: 'Manrope', 'Manrope Fallback', system-ui, -apple-system, 'Segoe UI', Arial, sans-serif;
+
+  // Escala fluida (320px → 1440px)
+  --fs-display: clamp(2.5rem, 1.5rem + 3.6vw, 5.5rem);
+  --fs-h2: clamp(2.25rem, 1.55rem + 3.4vw, 4.75rem);
+  --fs-h3: clamp(1.5rem, 1.3rem + 1vw, 2.25rem);
+  --fs-h4: clamp(1.25rem, 1.15rem + 0.45vw, 1.5rem);
+  --fs-lead: clamp(1.125rem, 1.05rem + 0.35vw, 1.375rem);
+  --fs-body: clamp(1rem, 0.97rem + 0.15vw, 1.0625rem);
+  --fs-small: 0.875rem;
+  --fs-eyebrow: 0.75rem;
+
+  --lh-tight: 1.02;
+  --lh-heading: 1.1;
+  --lh-body: 1.65;
+  --tracking-eyebrow: 0.18em;
+
+  // ─── Espaçamento (fluido) ─────────────────────────────────────
+  --space-3xs: 0.25rem;
+  --space-2xs: 0.5rem;
+  --space-xs: 0.75rem;
+  --space-s: 1rem;
+  --space-m: clamp(1.25rem, 1.1rem + 0.6vw, 1.75rem);
+  --space-l: clamp(2rem, 1.6rem + 1.6vw, 3.25rem);
+  --space-xl: clamp(3rem, 2.2rem + 3.4vw, 5.5rem);
+  --space-2xl: clamp(4.5rem, 3rem + 6vw, 9rem);
+  --section-pad: var(--space-2xl);
+
+  --gutter: clamp(1rem, 0.6rem + 2vw, 2.5rem);
+  --container: 82rem;        // 1312px
+  --container-narrow: 46rem;
+
+  // ─── Formas e camadas ─────────────────────────────────────────
+  --radius-s: 2px;
+  --radius-m: 6px;
+  --radius-l: 14px;
+  --radius-pill: 999px;
+  --header-h: 4.5rem;
+  --tap: 44px;
+
+  --z-header: 50;
+  --z-fab: 40;
+  --z-menu: 60;
+  --z-intro: 100;
+
+  // ─── Movimento (valores portados do clone, ver docs/clone-analysis.md §2) ──
+  --dur-s: 0.4s;
+  --dur-m: 0.8s;
+  --dur-l: 1.2s;
+  --ease-in-out: cubic-bezier(0.75, 0, 0.25, 1);
+  --ease-out: cubic-bezier(0.25, 1, 0.5, 1);
+  --ease-in: cubic-bezier(0.5, 0, 0.75, 0);
+  --ease: cubic-bezier(0.25, 0.1, 0.25, 1);
+  --ease-dive: cubic-bezier(0.6, 0, 0, 1);
+
+  --shadow-soft: 0 36px 36px rgb(0 0 0 / 5%), 0 9px 20px rgb(0 0 0 / 6%);
+}
+
+@media (min-width: 992px) {
+  :root {
+    --header-h: 5.5rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --dur-s: 0.01s;
+    --dur-m: 0.01s;
+    --dur-l: 0.01s;
+  }
+}

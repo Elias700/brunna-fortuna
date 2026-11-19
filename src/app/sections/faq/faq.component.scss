@@ -1,0 +1,117 @@
+@use 'mixins' as *;
+
+:host {
+  display: block;
+}
+
+.faq {
+  padding-block: var(--section-pad);
+  background: var(--c-paper);
+}
+
+.faq__grid {
+  display: grid;
+  gap: var(--space-xl);
+
+  @include up(lg) {
+    grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+    align-items: start;
+  }
+}
+
+.faq__intro {
+  display: grid;
+  gap: var(--space-s);
+
+  @include up(lg) {
+    position: sticky;
+    top: calc(var(--header-h) + var(--space-l));
+  }
+}
+
+.faq__title {
+  max-width: 16ch;
+}
+
+.faq__disclaimer,
+.faq__more {
+  max-width: 28rem;
+  font-size: var(--fs-small);
+  color: var(--c-muted);
+}
+
+.faq__list {
+  border-top: 1px solid var(--c-line-strong);
+}
+
+.faq__item {
+  border-bottom: 1px solid var(--c-line-strong);
+}
+
+.faq__q {
+  font-family: var(--font-sans);
+  font-size: inherit;
+  font-weight: inherit;
+  line-height: inherit;
+  letter-spacing: 0;
+}
+
+.faq__button {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-m);
+  width: 100%;
+  min-height: var(--tap);
+  padding-block: var(--space-m);
+  text-align: left;
+  font-family: var(--font-serif);
+  font-size: clamp(1.25rem, 1.1rem + 0.6vw, 1.625rem);
+  line-height: 1.25;
+  color: var(--c-ink);
+  transition: color var(--dur-s) var(--ease);
+
+  @include hover {
+    color: var(--c-wine);
+  }
+}
+
+.faq__icon {
+  display: grid;
+  place-items: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  padding: 0.45rem;
+  border: 1px solid var(--c-line-strong);
+  border-radius: 50%;
+  transition:
+    transform var(--dur-m) var(--ease-in-out),
+    background-color var(--dur-s) var(--ease),
+    color var(--dur-s) var(--ease);
+}
+
+.faq__item.is-open .faq__icon {
+  transform: rotate(-45deg);
+  background: var(--c-ink);
+  color: var(--c-paper);
+}
+
+.faq__a {
+  padding-bottom: var(--space-m);
+
+  p {
+    max-width: 40rem;
+    color: var(--c-graphite);
+  }
+}
+
+.faq__item.is-open .faq__a p {
+  animation: faq-in var(--dur-l) var(--ease-out) both;
+}
+
+@keyframes faq-in {
+  from {
+    opacity: 0;
+    transform: translateY(0.75rem);
+  }
+}

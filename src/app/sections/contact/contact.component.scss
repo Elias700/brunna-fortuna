@@ -1,0 +1,292 @@
+@use 'mixins' as *;
+
+:host {
+  display: block;
+}
+
+.contact {
+  padding-bottom: var(--section-pad);
+  background: var(--c-paper);
+}
+
+// ─── Faixa de abertura (S-FOOTER) ─────────────────────────────────
+// Padrão: foto emoldurada + título abaixo, em fundo claro.
+.band__stage {
+  @include container;
+  padding-top: var(--section-pad);
+}
+
+.band__media {
+  position: relative;
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
+  border-radius: var(--radius-m);
+  background: var(--c-sand);
+
+  img {
+    object-fit: cover;
+    object-position: 50% 30%;
+  }
+}
+
+.band__content {
+  margin-top: var(--space-l);
+  padding: 0;
+}
+
+.band__title {
+  max-width: 16ch;
+  margin-top: var(--space-xs);
+}
+
+// Tablet+ com animação ativa: foto em tela cheia que encolhe enquanto o título surge sobre ela.
+.band[data-pin-active] {
+  height: 200svh;
+
+  .band__stage {
+    position: sticky;
+    top: 0;
+    height: 100svh;
+    max-width: none;
+    padding: 0;
+    overflow: hidden;
+  }
+
+  .band__media {
+    position: absolute;
+    inset: 0;
+    aspect-ratio: auto;
+    border-radius: 0;
+
+    &::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: rgb(14 26 43 / 52%);
+    }
+  }
+
+  .band__content {
+    position: absolute;
+    inset: 0;
+    display: grid;
+    place-content: center;
+    justify-items: center;
+    margin: 0;
+    text-align: center;
+    max-width: none;
+  }
+
+  .band__eyebrow {
+    color: var(--c-gold-light);
+  }
+
+  .band__title {
+    max-width: 14ch;
+    color: var(--c-on-dark);
+    font-size: clamp(2.75rem, 1.6rem + 4vw, 6rem);
+    font-weight: 300;
+  }
+}
+
+// ─── Canais + formulário ──────────────────────────────────────────
+.contact__grid {
+  display: grid;
+  gap: var(--space-xl);
+  margin-top: var(--space-xl);
+
+  @include up(lg) {
+    grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+    align-items: start;
+  }
+}
+
+.contact__info {
+  display: grid;
+  gap: var(--space-l);
+  justify-items: start;
+}
+
+.contact__intro {
+  color: var(--c-graphite);
+}
+
+.contact__list {
+  display: grid;
+  gap: var(--space-m);
+
+  li {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: var(--space-s);
+    align-items: start;
+  }
+
+  app-icon {
+    margin-top: 0.15rem;
+    color: var(--c-wine);
+  }
+
+  div {
+    display: grid;
+  }
+
+  a {
+    color: var(--c-ink);
+    overflow-wrap: anywhere;
+  }
+}
+
+.contact__label {
+  @include eyebrow;
+  color: var(--c-muted);
+}
+
+.contact__oab {
+  padding-top: var(--space-s);
+  border-top: 1px solid var(--c-line);
+  font-size: var(--fs-small);
+  color: var(--c-muted);
+}
+
+.todo {
+  outline: 1px dashed var(--c-wine);
+  outline-offset: 2px;
+}
+
+// ─── Formulário ───────────────────────────────────────────────────
+.form {
+  display: grid;
+  gap: var(--space-m);
+  padding: clamp(1.25rem, 1rem + 2vw, 2.75rem);
+  border: 1px solid var(--c-line);
+  border-radius: var(--radius-l);
+  background: var(--c-paper-raised);
+  box-shadow: var(--shadow-soft);
+}
+
+.form__title {
+  font-size: var(--fs-h3);
+}
+
+.form__hint {
+  margin-top: calc(var(--space-xs) * -1);
+  font-size: var(--fs-small);
+  color: var(--c-muted);
+}
+
+.form__row {
+  display: grid;
+  gap: var(--space-m);
+
+  @include up(md) {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+.field {
+  display: grid;
+  align-content: start;
+  gap: 0.4rem;
+
+  label {
+    font-size: var(--fs-small);
+    font-weight: 600;
+    color: var(--c-ink);
+  }
+
+  input:not([type='checkbox']),
+  select,
+  textarea {
+    width: 100%;
+    min-height: var(--tap);
+    padding: 0.75rem 0.9rem;
+    border: 1px solid var(--c-line-strong);
+    border-radius: var(--radius-m);
+    background: var(--c-paper);
+    color: var(--c-graphite);
+    font-size: 1rem; // ≥16px evita zoom automático no iOS
+    transition:
+      border-color var(--dur-s) var(--ease),
+      box-shadow var(--dur-s) var(--ease);
+
+    &:focus-visible {
+      outline: none;
+      border-color: var(--c-wine);
+      box-shadow: 0 0 0 3px rgb(122 46 46 / 22%);
+    }
+
+    &[aria-invalid='true'] {
+      border-color: var(--c-error);
+    }
+  }
+
+  textarea {
+    resize: vertical;
+    min-height: 8rem;
+  }
+}
+
+.field__hint {
+  font-size: 0.8125rem;
+  color: var(--c-muted);
+}
+
+.field__error {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--c-error);
+}
+
+.field--check {
+  grid-template-columns: auto 1fr;
+  align-items: start;
+  column-gap: 0.75rem;
+
+  input {
+    width: 1.375rem;
+    height: 1.375rem;
+    margin-top: 0.1rem;
+    accent-color: var(--c-wine);
+  }
+
+  label {
+    font-weight: 400;
+    color: var(--c-graphite);
+  }
+
+  .field__error {
+    grid-column: 1 / -1;
+  }
+}
+
+.field--honeypot {
+  @include visually-hidden;
+}
+
+.form__submit {
+  justify-self: start;
+
+  &:disabled {
+    opacity: 0.6;
+    cursor: progress;
+  }
+
+  @include down(sm) {
+    justify-self: stretch;
+  }
+}
+
+.form__status {
+  min-height: 1.5em;
+  font-size: var(--fs-small);
+  font-weight: 600;
+
+  &.is-success {
+    color: var(--c-success);
+  }
+
+  &.is-error {
+    color: var(--c-error);
+  }
+}

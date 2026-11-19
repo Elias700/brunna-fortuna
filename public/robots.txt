@@ -1,0 +1,6 @@
+# Brunna Fortuna Advocacia
+User-agent: *
+Allow: /
+
+# TODO: trocar pelo domínio de produção quando ele for definido.
+Sitemap: https://www.dominio.com.br/sitemap.xml

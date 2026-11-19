@@ -1,0 +1,155 @@
+<section id="contato" class="contact" aria-labelledby="contact-title" appBgShift="light" tabindex="-1">
+  <div class="band" appPinSection="footerClip">
+    <div class="band__stage">
+      <div class="band__media" data-pin="media">
+        <img ngSrc="brunna-horizontal" fill sizes="100vw" [alt]="section.photo.alt" />
+      </div>
+      <div class="band__content container" data-pin="content">
+        <p class="eyebrow band__eyebrow">{{ section.eyebrow }}</p>
+        <h2 id="contact-title" class="band__title">{{ section.title }}</h2>
+      </div>
+    </div>
+  </div>
+
+  <div class="container contact__grid">
+    <div class="contact__info">
+      <p class="lead contact__intro" appSplitText="lines">{{ section.intro }}</p>
+
+      @if (whatsapp) {
+        <a class="btn contact__whatsapp" [href]="whatsapp" target="_blank" rel="noopener noreferrer" appReveal>
+          <app-icon name="whatsapp" [stroke]="1.6" />
+          Conversar pelo WhatsApp
+          <span class="visually-hidden">(abre em nova aba)</span>
+        </a>
+      }
+
+      <ul class="contact__list" role="list" appReveal revealChildren="li" [revealDelay]="0.15">
+        <li>
+          <app-icon name="whatsapp" />
+          <div>
+            <span class="contact__label">WhatsApp</span>
+            <span [class.todo]="pending(contact.whatsappDisplay)">{{ contact.whatsappDisplay }}</span>
+          </div>
+        </li>
+        <li>
+          <app-icon name="mail" />
+          <div>
+            <span class="contact__label">E-mail</span>
+            @if (mailto) {
+              <a [href]="mailto">{{ contact.email }}</a>
+            } @else {
+              <span class="todo">{{ contact.email }}</span>
+            }
+          </div>
+        </li>
+        <li>
+          <app-icon name="map-pin" />
+          <div>
+            <span class="contact__label">Endereço</span>
+            <span [class.todo]="pending(contact.address)">{{ contact.address }}</span>
+            <span [class.todo]="pending(contact.city)">{{ contact.city }}</span>
+          </div>
+        </li>
+        <li>
+          <app-icon name="clock" />
+          <div>
+            <span class="contact__label">Atendimento</span>
+            <span [class.todo]="pending(contact.hours)">{{ contact.hours }}</span>
+            <span>Presencial ou on-line, mediante agendamento.</span>
+          </div>
+        </li>
+      </ul>
+
+      <p class="contact__oab">
+        {{ profile.name }} · {{ profile.role }} ·
+        <span [class.todo]="pending(profile.oab)">{{ profile.oab }}</span>
+      </p>
+    </div>
+
+    <form class="form" [formGroup]="form" (ngSubmit)="submit()" novalidate appReveal [revealDelay]="0.2">
+      <h3 class="form__title">Envie uma mensagem</h3>
+      <p class="form__hint">Campos marcados com <span aria-hidden="true">*</span><span class="visually-hidden">asterisco</span> são obrigatórios.</p>
+
+      <div class="field">
+        <label for="contact-name">Nome <span aria-hidden="true">*</span></label>
+        <input id="contact-name" type="text" formControlName="name" autocomplete="name" required
+          [attr.aria-invalid]="showError('name')" [attr.aria-describedby]="describedBy('name')" />
+        @if (showError('name')) {
+          <p class="field__error" id="name-error">{{ errorText('name') }}</p>
+        }
+      </div>
+
+      <div class="form__row">
+        <div class="field">
+          <label for="contact-phone">Telefone / WhatsApp <span aria-hidden="true">*</span></label>
+          <input id="contact-phone" type="tel" inputmode="tel" formControlName="phone" autocomplete="tel" required
+            [attr.aria-invalid]="showError('phone')" [attr.aria-describedby]="describedBy('phone', true)" />
+          <p class="field__hint" id="phone-hint">Com DDD.</p>
+          @if (showError('phone')) {
+            <p class="field__error" id="phone-error">{{ errorText('phone') }}</p>
+          }
+        </div>
+
+        <div class="field">
+          <label for="contact-email">E-mail <span aria-hidden="true">*</span></label>
+          <input id="contact-email" type="email" formControlName="email" autocomplete="email" required
+            [attr.aria-invalid]="showError('email')" [attr.aria-describedby]="describedBy('email')" />
+          @if (showError('email')) {
+            <p class="field__error" id="email-error">{{ errorText('email') }}</p>
+          }
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="contact-subject">Assunto <span aria-hidden="true">*</span></label>
+        <select id="contact-subject" formControlName="subject" required
+          [attr.aria-invalid]="showError('subject')" [attr.aria-describedby]="describedBy('subject')">
+          <option value="" disabled>Selecione</option>
+          @for (s of section.subjects; track s) {
+            <option [value]="s">{{ s }}</option>
+          }
+        </select>
+        @if (showError('subject')) {
+          <p class="field__error" id="subject-error">{{ errorText('subject') }}</p>
+        }
+      </div>
+
+      <div class="field">
+        <label for="contact-message">Mensagem <span aria-hidden="true">*</span></label>
+        <textarea id="contact-message" rows="5" formControlName="message" required maxlength="2000"
+          [attr.aria-invalid]="showError('message')" [attr.aria-describedby]="describedBy('message', true)"></textarea>
+        <p class="field__hint" id="message-hint">Não é necessário enviar documentos ou detalhes sensíveis neste primeiro contato.</p>
+        @if (showError('message')) {
+          <p class="field__error" id="message-error">{{ errorText('message') }}</p>
+        }
+      </div>
+
+      <div class="field field--honeypot" aria-hidden="true">
+        <label for="contact-website">Não preencha este campo</label>
+        <input id="contact-website" type="text" formControlName="website" tabindex="-1" autocomplete="off" />
+      </div>
+
+      <div class="field field--check">
+        <input id="contact-consent" type="checkbox" formControlName="consent" required
+          [attr.aria-invalid]="showError('consent')" [attr.aria-describedby]="describedBy('consent')" />
+        <label for="contact-consent">
+          Autorizo o uso dos meus dados para retorno do contato, conforme a
+          <a class="text-link" routerLink="/politica-de-privacidade">Política de Privacidade</a>.
+          <span aria-hidden="true">*</span>
+        </label>
+        @if (showError('consent')) {
+          <p class="field__error" id="consent-error">{{ errorText('consent') }}</p>
+        }
+      </div>
+
+      <button class="btn form__submit" type="submit" [disabled]="status() === 'sending'">
+        {{ status() === 'sending' ? 'Enviando…' : 'Enviar mensagem' }}
+        <app-icon name="arrow-right" />
+      </button>
+
+      <p class="form__status" role="status" aria-live="polite" [class.is-error]="status() === 'error'" [class.is-success]="status() === 'success'">
+        {{ statusMessage() }}
+      </p>
+    </form>
+  </div>
+</section>

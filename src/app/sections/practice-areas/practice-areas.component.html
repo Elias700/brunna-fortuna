@@ -1,0 +1,41 @@
+<section id="atuacao" class="practice on-dark" aria-labelledby="practice-title" appBgShift="dark" tabindex="-1">
+  <div class="practice__area" appHorizontalScroll appPinSection="zoomOut">
+    <div class="practice__stage" data-pin="content">
+      <header class="practice__head container">
+        <div>
+          <p class="eyebrow" appReveal="fade">{{ practice.eyebrow }}</p>
+          <h2 id="practice-title" class="practice__title">
+            <span class="practice__line" data-hscroll="line">Famílias</span>
+            <span class="practice__line practice__line--accent" data-hscroll="line"><em>e</em> Sucessões</span>
+          </h2>
+        </div>
+        <p class="practice__intro" appSplitText="lines">{{ practice.intro }}</p>
+      </header>
+
+      <div class="practice__viewport">
+        <div class="practice__track" data-hscroll="track">
+          @for (group of practice.groups; track group.id) {
+            <div class="practice__group" role="group" [attr.aria-labelledby]="'grupo-' + group.id">
+              <div class="group-card" data-hscroll="item">
+                <p class="group-card__eyebrow">{{ group.eyebrow }}</p>
+                <h3 class="group-card__title" [id]="'grupo-' + group.id">{{ group.title }}</h3>
+                <p class="group-card__intro">{{ group.intro }}</p>
+                <p class="group-card__count">{{ group.items.length }} temas</p>
+              </div>
+
+              <ul class="practice__list" role="list">
+                @for (item of group.items; track item.title; let i = $index) {
+                  <li class="area-card" data-hscroll="item">
+                    <span class="area-card__num" aria-hidden="true">{{ num(i) }}</span>
+                    <h4 class="area-card__title">{{ item.title }}</h4>
+                    <p class="area-card__text">{{ item.text }}</p>
+                  </li>
+                }
+              </ul>
+            </div>
+          }
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

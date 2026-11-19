@@ -1,0 +1,54 @@
+<section id="inicio" class="hero" aria-labelledby="hero-title" appPinSection="heroDive" appBgShift="light">
+  <div class="hero__stage">
+    <div class="hero__grid container">
+      <div class="hero__content" data-pin="content">
+        <p class="eyebrow hero__eyebrow" appReveal="fade" afterIntro [revealDelay]="0.1">{{ hero.eyebrow }}</p>
+
+        <h1 id="hero-title" class="hero__title" [attr.aria-label]="title">
+          <span class="hero__title-lead" appSplitText="chars" splitAria="hidden" afterIntro [splitDelay]="0.15">{{
+            hero.titleLead
+          }}</span>
+          <em class="hero__title-accent" appSplitText="charsSlide" splitAria="hidden" afterIntro [splitDelay]="0.45">{{
+            hero.titleAccent
+          }}</em>
+        </h1>
+
+        <p class="lead hero__subtitle" appSplitText="lines" afterIntro [splitDelay]="0.7">{{ hero.subtitle }}</p>
+
+        <div class="hero__actions" appReveal revealChildren=".hero__action" afterIntro [revealDelay]="0.9">
+          <a class="btn hero__action" [appMagnetic]="14" [href]="nav.href('contato')" (click)="nav.go('contato', $event)">
+            {{ hero.primaryCta }}
+          </a>
+          <a class="btn btn--ghost hero__action" [href]="nav.href('atuacao')" (click)="nav.go('atuacao', $event)">
+            {{ hero.secondaryCta }}
+            <app-icon name="arrow-down" />
+          </a>
+        </div>
+
+        <ul class="hero__credentials" role="list" appReveal="fade" afterIntro [revealDelay]="1.1">
+          <li>Especialista pela {{ profile.institutions.epd.short }}</li>
+          <li>Diretoria do {{ profile.institutions.ibdfam.short }}</li>
+          <li>Palestrante</li>
+        </ul>
+      </div>
+
+      <div class="hero__media" data-pin="media">
+        <div class="hero__frame">
+          <img
+            data-hero-img
+            ngSrc="brunna-hero"
+            fill
+            priority
+            sizes="(min-width: 992px) 40vw, 100vw"
+            [alt]="hero.photo.alt"
+          />
+        </div>
+      </div>
+    </div>
+
+    <div class="hero__cue" aria-hidden="true">
+      <span class="hero__cue-line" appReveal="line" afterIntro [revealDelay]="1.2"></span>
+      <span class="hero__cue-label">Role</span>
+    </div>
+  </div>
+</section>

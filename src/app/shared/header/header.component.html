@@ -1,0 +1,72 @@
+<div class="bar" (keydown)="trapFocus($event)">
+  <div class="bar__inner">
+    <a class="brand" [href]="nav.href('topo')" (click)="go('topo', $event)">
+      <span class="brand__mark" aria-hidden="true">
+        <img class="brand__logo brand__logo--ink" ngSrc="logo-ink" width="46" height="34" alt="" loading="eager" />
+        <img class="brand__logo brand__logo--gold" ngSrc="logo-gold" width="46" height="34" alt="" loading="eager" />
+      </span>
+      <span class="brand__text">
+        <span class="brand__name">Brunna Fortuna</span>
+        <span class="brand__sub">Advocacia</span>
+      </span>
+    </a>
+
+    <nav class="nav" aria-label="Navegação principal">
+      <ul class="nav__list" role="list">
+        @for (item of items; track item.id) {
+          <li>
+            <a class="nav__link" [href]="nav.href(item.id)" (click)="go(item.id, $event)">
+              <app-roll-text [text]="item.label" />
+            </a>
+          </li>
+        }
+      </ul>
+    </nav>
+
+    <a class="btn cta" [appMagnetic]="14" [href]="nav.href('contato')" (click)="go('contato', $event)">
+      <app-roll-text [text]="cta" />
+    </a>
+
+    <button
+      #menuButton
+      class="menu-btn"
+      type="button"
+      aria-controls="menu-mobile"
+      [attr.aria-expanded]="menuOpen()"
+      (click)="toggle()"
+    >
+      <span class="menu-btn__label">{{ menuOpen() ? 'Fechar' : 'Menu' }}</span>
+      <span class="menu-btn__bars" aria-hidden="true"><i></i><i></i></span>
+    </button>
+  </div>
+
+  <div
+    #menu
+    id="menu-mobile"
+    class="menu"
+    role="dialog"
+    aria-modal="true"
+    aria-label="Menu de navegação"
+    [class.is-open]="menuOpen()"
+    [attr.inert]="menuOpen() ? null : ''"
+  >
+    <div class="menu__inner">
+      <nav aria-label="Navegação do menu">
+        <ol class="menu__list" role="list">
+          @for (item of items; track item.id; let i = $index) {
+            <li class="menu__item" [style.--i]="i">
+              <a class="menu__link" [href]="nav.href(item.id)" (click)="go(item.id, $event)">
+                <span class="menu__num" aria-hidden="true">{{ (i + 1).toString().padStart(2, '0') }}</span>
+                {{ item.label }}
+              </a>
+            </li>
+          }
+        </ol>
+      </nav>
+      <div class="menu__footer" [style.--i]="items.length">
+        <a class="btn btn--light" [href]="nav.href('contato')" (click)="go('contato', $event)">{{ cta }}</a>
+        <p class="menu__meta">{{ profile.specialization }}</p>
+      </div>
+    </div>
+  </div>
+</div>

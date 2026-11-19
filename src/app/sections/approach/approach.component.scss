@@ -1,0 +1,90 @@
+@use 'mixins' as *;
+
+:host {
+  display: block;
+}
+
+.approach {
+  padding-block: var(--section-pad);
+  background: var(--c-paper);
+  overflow: hidden;
+}
+
+.approach__head {
+  display: grid;
+  justify-items: center;
+  gap: var(--space-s);
+  text-align: center;
+}
+
+.approach__title {
+  max-width: 100%;
+  font-weight: 300;
+}
+
+.approach__intro {
+  max-width: 40rem;
+  color: var(--c-muted);
+}
+
+.approach__grid {
+  display: grid;
+  gap: var(--space-xl);
+  margin-top: var(--space-xl);
+
+  @include up(lg) {
+    grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+    align-items: center;
+  }
+}
+
+.approach__frame {
+  position: relative;
+  aspect-ratio: 4 / 5;
+  max-width: 32rem;
+  overflow: hidden;
+  border-radius: var(--radius-m);
+  background: var(--c-sand);
+}
+
+.approach__layer {
+  position: absolute;
+  inset: 0;
+
+  img {
+    object-fit: cover;
+    object-position: 50% 15%;
+  }
+}
+
+.approach__pillars {
+  display: grid;
+  gap: var(--space-l) var(--space-m);
+
+  @include up(md) {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+.pillar {
+  display: grid;
+  gap: var(--space-2xs);
+  padding-top: var(--space-s);
+  border-top: 1px solid var(--c-line-strong);
+}
+
+.pillar__num {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: 1.75rem;
+  line-height: 1;
+  color: var(--c-wine);
+}
+
+.pillar__title {
+  font-size: var(--fs-h4);
+}
+
+.pillar__text {
+  color: var(--c-muted);
+}

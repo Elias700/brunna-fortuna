@@ -1,0 +1,95 @@
+// Intro 100% CSS: começa na primeira pintura e termina em ~1,65 s, sem depender do JS.
+// Linha do tempo (portada do preloader do clone, encurtada):
+//   0,00–0,60 s  monograma entra (opacity/scale, ease Out)
+//   0,10–0,65 s  linha de progresso cresce (scaleX, ease InOut)
+//   0,75–1,15 s  conteúdo sai para cima (ease In)
+//   0,80–1,65 s  painel sobe como cortina (clip-path, ease diveIn)
+
+:host {
+  display: contents;
+}
+
+.intro {
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-intro);
+  display: none;
+  place-items: center;
+  background:
+    radial-gradient(60% 50% at 50% 45%, rgb(184 146 90 / 14%), transparent 70%),
+    var(--c-ink);
+  pointer-events: none;
+}
+
+// Só existe quando o script inline marcou a intro como pendente (1ª visita na sessão, com JS,
+// sem movimento reduzido).
+:host-context(html.intro-pending) .intro {
+  display: grid;
+  animation: intro-curtain 0.85s cubic-bezier(0.6, 0, 0, 1) 0.8s both;
+}
+
+.intro__center {
+  display: grid;
+  justify-items: center;
+  gap: 1.25rem;
+  animation: intro-out 0.4s cubic-bezier(0.5, 0, 0.75, 0) 0.75s both;
+}
+
+.intro__logo {
+  width: clamp(6.5rem, 18vw, 10.5rem);
+  height: auto;
+  animation: intro-in 0.6s cubic-bezier(0.25, 1, 0.5, 1) both;
+}
+
+.intro__line {
+  display: block;
+  width: clamp(6rem, 16vw, 9rem);
+  height: 1px;
+  background: rgb(212 183 129 / 25%);
+
+  span {
+    display: block;
+    height: 100%;
+    background: var(--c-gold-light);
+    transform-origin: left;
+    animation: intro-line 0.55s cubic-bezier(0.75, 0, 0.25, 1) 0.1s both;
+  }
+}
+
+.intro__name {
+  font-family: var(--font-serif);
+  font-size: clamp(1rem, 0.9rem + 0.5vw, 1.25rem);
+  letter-spacing: 0.08em;
+  color: var(--c-gold-light);
+  animation: intro-in 0.5s cubic-bezier(0.25, 1, 0.5, 1) 0.15s both;
+}
+
+@keyframes intro-in {
+  from {
+    opacity: 0;
+    transform: translateY(12px) scale(0.92);
+  }
+}
+
+@keyframes intro-line {
+  from {
+    transform: scaleX(0);
+  }
+}
+
+@keyframes intro-out {
+  to {
+    opacity: 0;
+    transform: translateY(-24px);
+  }
+}
+
+@keyframes intro-curtain {
+  from {
+    clip-path: inset(0 0 0 0);
+  }
+  to {
+    clip-path: inset(0 0 100% 0);
+    visibility: hidden;
+  }
+}

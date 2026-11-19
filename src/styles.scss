@@ -1,0 +1,151 @@
+@use 'tokens';
+@use 'reset';
+@use 'typography';
+@use 'mixins' as *;
+
+// ─── Estado inicial das animações ─────────────────────────────────
+// `.js-anim` é adicionada por um script inline no <head> (src/index.html) somente quando
+// há JS e o usuário não pediu movimento reduzido. Sem JS, nada fica escondido.
+// Cada diretiva adiciona `.anim-shown` depois de aplicar o estado inicial do GSAP.
+// Se o bundle falhar, o script remove `.js-anim` após 4s (fail-safe).
+//
+// É `opacity` e não `visibility`: conteúdo com visibility:hidden sai da árvore de acessibilidade e
+// não recebe foco. Com opacity, leitores de tela leem tudo e o Tab alcança links e botões ainda não
+// revelados. E `:focus-within` garante que o que recebe foco fique visível.
+html.js-anim [data-anim]:not(.anim-shown) {
+  opacity: 0;
+}
+
+html.js-anim [data-anim]:focus-within {
+  opacity: 1 !important;
+}
+
+// Fail-safe do hero: se o JS ainda não chegou quando a intro acaba (rede lenta), o texto aparece
+// aos 1,8 s sem animação, em vez de ficar oculto esperando o bundle.
+html.js-anim [data-anim][data-after-intro]:not(.anim-shown) {
+  animation: anim-failsafe 0s 1.8s forwards;
+}
+
+@keyframes anim-failsafe {
+  to {
+    opacity: 1;
+  }
+}
+
+// ─── Utilitários ──────────────────────────────────────────────────
+.container {
+  @include container;
+}
+
+.container-narrow {
+  @include container(var(--container-narrow));
+}
+
+.visually-hidden {
+  @include visually-hidden;
+}
+
+.skip-link {
+  position: fixed;
+  top: var(--space-s);
+  left: var(--space-s);
+  z-index: calc(var(--z-intro) + 1);
+  padding: var(--space-xs) var(--space-m);
+  background: var(--c-ink);
+  color: var(--c-on-dark);
+  border-radius: var(--radius-m);
+  font-weight: 600;
+  text-decoration: none;
+  transform: translateY(-200%);
+
+  &:focus-visible {
+    transform: none;
+  }
+}
+
+:focus-visible {
+  @include focus-ring;
+}
+
+.on-dark :focus-visible {
+  @include focus-ring(var(--c-gold-light));
+}
+
+::selection {
+  background: var(--c-wine);
+  color: var(--c-paper);
+}
+
+// Âncoras de seção recebem foco programático após navegar pelo menu.
+section[tabindex='-1']:focus {
+  outline: none;
+}
+
+// ─── Botões ───────────────────────────────────────────────────────
+.btn {
+  --btn-bg: var(--c-ink);
+  --btn-fg: var(--c-on-dark);
+  --btn-border: var(--c-ink);
+
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2xs);
+  min-height: var(--tap);
+  padding: 0.85rem 1.6rem;
+  border: 1px solid var(--btn-border);
+  border-radius: var(--radius-pill);
+  background: var(--btn-bg);
+  color: var(--btn-fg);
+  font-family: var(--font-sans);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  text-decoration: none;
+  white-space: nowrap;
+  transition:
+    background-color var(--dur-s) var(--ease),
+    color var(--dur-s) var(--ease),
+    border-color var(--dur-s) var(--ease);
+
+  @include hover {
+    --btn-bg: var(--c-wine);
+    --btn-border: var(--c-wine);
+  }
+
+  &--ghost {
+    --btn-bg: transparent;
+    --btn-fg: var(--c-ink);
+    --btn-border: var(--c-line-strong);
+
+    @include hover {
+      --btn-bg: var(--c-ink);
+      --btn-fg: var(--c-on-dark);
+      --btn-border: var(--c-ink);
+    }
+  }
+
+  &--light {
+    --btn-bg: var(--c-paper);
+    --btn-fg: var(--c-ink);
+    --btn-border: var(--c-paper);
+
+    @include hover {
+      --btn-bg: var(--c-gold-light);
+      --btn-border: var(--c-gold-light);
+    }
+  }
+}
+
+.text-link {
+  color: var(--c-wine);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.2em;
+
+  @include hover {
+    color: var(--c-ink);
+  }
+}

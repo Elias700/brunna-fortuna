@@ -1,0 +1,13 @@
+export { DUR, STAGGER, EASES, BREAKPOINT } from './motion-tokens';
+export { ScrollAnimationService } from './scroll-animation.service';
+export { HeaderThemeService, type SectionTheme } from './header-theme.service';
+export { useMotion, type MotionScope } from './use-motion';
+export { RevealDirective } from './reveal.directive';
+export { SplitTextDirective } from './split-text.directive';
+export { ParallaxDirective } from './parallax.directive';
+export { ImageMaskDirective } from './image-mask.directive';
+export { PinSectionDirective } from './pin-section.directive';
+export { HorizontalScrollDirective } from './horizontal-scroll.directive';
+export { BgShiftDirective } from './bg-shift.directive';
+export { TextRollDirective } from './text-roll.directive';
+export { MagneticDirective } from './magnetic.directive';

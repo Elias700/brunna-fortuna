@@ -1,0 +1,118 @@
+@use 'mixins' as *;
+
+:host {
+  display: block;
+}
+
+.footer {
+  padding-block: var(--space-xl) var(--space-l);
+  background: var(--c-ink);
+  color: var(--c-on-dark);
+}
+
+.footer__grid {
+  display: grid;
+  gap: var(--space-l);
+
+  @include up(md) {
+    grid-template-columns: 1.4fr 1fr 1fr;
+  }
+}
+
+.footer__logo {
+  width: 4.5rem;
+  height: auto;
+  margin-bottom: var(--space-m);
+}
+
+.footer__name {
+  font-family: var(--font-serif);
+  font-size: var(--fs-h3);
+  line-height: 1.1;
+}
+
+.footer__tagline {
+  margin-top: var(--space-2xs);
+  color: var(--c-on-dark-muted);
+}
+
+.footer__oab {
+  margin-top: var(--space-m);
+  font-size: var(--fs-small);
+  color: var(--c-gold-light);
+}
+
+.footer__title {
+  @include eyebrow;
+  margin-bottom: var(--space-s);
+  font-family: var(--font-sans);
+  font-size: var(--fs-eyebrow);
+  color: var(--c-gold-light);
+}
+
+.footer__col ul {
+  display: grid;
+  gap: 0.15rem;
+}
+
+.footer__col a,
+.footer__col li {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-height: var(--tap);
+  color: var(--c-on-dark);
+  text-decoration: none;
+}
+
+.footer__col a {
+  text-decoration: underline;
+  text-decoration-color: transparent;
+  text-underline-offset: 0.25em;
+  transition: text-decoration-color var(--dur-s) var(--ease);
+
+  @include hover {
+    text-decoration-color: currentColor;
+  }
+}
+
+.footer__bottom {
+  display: grid;
+  gap: var(--space-s);
+  margin-top: var(--space-xl);
+  padding-top: var(--space-m);
+  border-top: 1px solid var(--c-line-on-dark);
+  font-size: var(--fs-small);
+  color: var(--c-on-dark-muted);
+
+  @include up(lg) {
+    grid-template-columns: 1fr auto;
+    align-items: start;
+  }
+}
+
+.footer__legal {
+  max-width: 44rem;
+}
+
+.footer__policies {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0 var(--space-m);
+
+  a {
+    display: inline-flex;
+    align-items: center;
+    min-height: var(--tap);
+    color: var(--c-on-dark);
+  }
+}
+
+.footer__copy {
+  grid-column: 1 / -1;
+}
+
+.todo {
+  outline: 1px dashed var(--c-gold-light);
+  outline-offset: 2px;
+}
