@@ -11,7 +11,7 @@ import {
 import { ABOUT } from '../../core/data/site-content';
 
 /**
- * Sobre. Animações: R-SLIDE (máscara diagonal) + P-IMG na foto; R-H no título; R-P nos parágrafos;
+ * Sobre. Animações: R-SLIDE (máscara diagonal) + P-IN na foto (assenta sem cortar a cabeça); R-H no título; R-P nos parágrafos;
  * R-LINE + R-CTN nas credenciais, com P-CTN (ritmo diferente) no desktop.
  */
 @Component({
@@ -24,7 +24,7 @@ import { ABOUT } from '../../core/data/site-content';
         <div class="about__media" data-parallax-wrap>
           <div class="about__frame" appImageMask="diagonal">
             <div class="about__mask-inner">
-              <div class="about__parallax" appParallax="img">
+              <div class="about__parallax" appParallax="in">
                 <img ngSrc="brunna-livros" fill sizes="(min-width: 992px) 42vw, 100vw" [alt]="about.photo.alt" />
               </div>
             </div>
